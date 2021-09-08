@@ -1,0 +1,55 @@
+package base;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+public class BaseTest {
+
+    protected WebDriver driver;
+
+    @BeforeMethod
+    public void setup() throws MalformedURLException {
+        //BROWSER VARIABLE
+        //HUB_HOST
+
+        String host = "localhost";
+        DesiredCapabilities dc = new DesiredCapabilities();
+
+        if(System.getProperty("BROWSER")!=null){
+            if(System.getProperty("BROWSER").equalsIgnoreCase("chrome")){
+                dc.setBrowserName("Chrome");
+            }else if (System.getProperty("BROWSER").equalsIgnoreCase("firefox")){
+                dc.setBrowserName("Firefox");
+            }
+        }else{
+            dc.setBrowserName("chrome");
+        }
+
+        if(System.getProperty("HUB_HOST")!=null){
+            host = System.getProperty("HUB_HOST");
+        }
+
+        String completeURL = "http://" + host + ":4444/wd/hub";
+        this.driver = new RemoteWebDriver(new URL(completeURL), dc);
+
+//        System.setProperty("webdriver.chrome.driver","/Users/sritaj/Documents/Programs/SeleniumDocker/src/main/resources/drivers/chromedriver");
+//        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("http://vins-udemy.s3.amazonaws.com/docker/docker-book-flight.html#");
+
+    }
+
+    @AfterMethod
+    public void tearDown(){
+        driver.quit();
+    }
+}
