@@ -1,7 +1,11 @@
 package base;
 
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterMethod;
@@ -26,12 +30,12 @@ public class BaseTest {
 
         if(System.getProperty("BROWSER")!=null){
             if(System.getProperty("BROWSER").equalsIgnoreCase("chrome")){
-                dc.setBrowserName("Chrome");
+                dc.setBrowserName(BrowserType.CHROME);
             }else if (System.getProperty("BROWSER").equalsIgnoreCase("firefox")){
-                dc.setBrowserName("Firefox");
+                dc.setBrowserName(BrowserType.FIREFOX);
             }
         }else{
-            dc.setBrowserName("chrome");
+            dc.setBrowserName(BrowserType.CHROME);
         }
 
         if(System.getProperty("HUB_HOST")!=null){
@@ -41,7 +45,7 @@ public class BaseTest {
         String completeURL = "http://" + host + ":4444/wd/hub";
         this.driver = new RemoteWebDriver(new URL(completeURL), dc);
 
-//        System.setProperty("webdriver.chrome.driver","/Users/sritaj/Documents/Programs/SeleniumDocker/src/main/resources/drivers/chromedriver");
+//        System.setProperty("webdriver.chrome.driver","/Users/sritaj/Documents/Programs/SeleniumProjects/SeleniumDockerApp/src/main/resources/drivers/chromedriver");
 //        driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("http://vins-udemy.s3.amazonaws.com/docker/docker-book-flight.html#");
