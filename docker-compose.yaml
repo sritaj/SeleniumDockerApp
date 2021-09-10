@@ -1,0 +1,30 @@
+version: "3"
+services: 
+    hub:
+        image: selenium/hub:latest
+        ports: 
+            - "4444:4444"
+    chrome:
+        image: selenium/node-chrome:latest
+        shm_size: '1gb'
+        depends_on: 
+            - hub
+        environment: 
+            - HUB_HOST=hub
+    firefox:
+        image: selenium/node-firefox:latest
+        depends_on: 
+            - hub
+        environment: 
+            - HUB_HOST=hub
+    selenium-project:
+        image: sritaj/selenium-project
+        depends_on: 
+            - chrome
+            - firefox
+        environment: 
+            - BROWSER=Firefox
+            - HUB_HOST=hub
+            - MODULE=flight-details-test.xml
+        volumes:
+            - /Users/sritaj/Documents/Programs/SeleniumProjects/output:/usr/share/udemy/test-output
