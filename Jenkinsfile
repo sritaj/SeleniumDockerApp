@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Maven Install') {
       agent {
-        docker {
+        any {
           image 'maven:3-alpine'
         }
       }
