@@ -1,5 +1,6 @@
 package base;
 
+import genericMethods.PropertiesFile;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -28,28 +29,35 @@ public class BaseTest {
         String host = "localhost";
         DesiredCapabilities dc = new DesiredCapabilities();
 
-        if(System.getProperty("BROWSER")!=null){
-            if(System.getProperty("BROWSER").equalsIgnoreCase("chrome")){
+        String runMode = PropertiesFile.getDataFromPropertyFile("localrun");
+        System.out.println(runMode);
+
+        if(runMode.equalsIgnoreCase("No")){
+            if(System.getProperty("BROWSER")!=null){
+                if(System.getProperty("BROWSER").equalsIgnoreCase("chrome")){
+                    dc.setBrowserName(BrowserType.CHROME);
+                }else if (System.getProperty("BROWSER").equalsIgnoreCase("firefox")){
+                    dc.setBrowserName(BrowserType.FIREFOX);
+                }
+            }else{
                 dc.setBrowserName(BrowserType.CHROME);
-            }else if (System.getProperty("BROWSER").equalsIgnoreCase("firefox")){
-                dc.setBrowserName(BrowserType.FIREFOX);
             }
-        }else{
-            dc.setBrowserName(BrowserType.CHROME);
+
+            if(System.getProperty("HUB_HOST")!=null){
+                host = System.getProperty("HUB_HOST");
+            }
+
+            String completeURL = "http://" + host + ":4444/wd/hub";
+            this.driver = new RemoteWebDriver(new URL(completeURL), dc);
+
+            driver.manage().window().maximize();
+            driver.get("http://vins-udemy.s3.amazonaws.com/docker/docker-book-flight.html#");
+        }else if(runMode.equalsIgnoreCase("Yes")){
+            System.setProperty("webdriver.chrome.driver","/Users/sritaj/Documents/Programs/SeleniumProjects/SeleniumDockerApp/src/main/resources/drivers/chromedriver");
+            driver = new ChromeDriver();
+            driver.manage().window().maximize();
+            driver.get("http://vins-udemy.s3.amazonaws.com/docker/docker-book-flight.html#");
         }
-
-        if(System.getProperty("HUB_HOST")!=null){
-            host = System.getProperty("HUB_HOST");
-        }
-
-        String completeURL = "http://" + host + ":4444/wd/hub";
-        this.driver = new RemoteWebDriver(new URL(completeURL), dc);
-
-//        System.setProperty("webdriver.chrome.driver","/Users/sritaj/Documents/Programs/SeleniumProjects/SeleniumDockerApp/src/main/resources/drivers/chromedriver");
-//        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("http://vins-udemy.s3.amazonaws.com/docker/docker-book-flight.html#");
-
     }
 
     @AfterMethod
