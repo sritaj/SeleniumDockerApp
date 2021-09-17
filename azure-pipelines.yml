@@ -38,8 +38,8 @@ stages:
         repository: $(repositoryName)
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
-          - $(Build.BuildId)
-          - latest
+           $(Build.BuildId)
+           latest
     - task: CopyFiles@2
       inputs:
         Contents: '**'
