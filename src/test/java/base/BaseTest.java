@@ -53,7 +53,7 @@ public class BaseTest {
             driver.manage().window().maximize();
             driver.get("http://vins-udemy.s3.amazonaws.com/docker/docker-book-flight.html#");
         }else if(runMode.equalsIgnoreCase("Yes")){
-            System.setProperty("webdriver.chrome.driver","/Users/sritaj/Documents/Programs/SeleniumProjects/SeleniumDockerApp/src/main/resources/drivers/chromedriver");
+            System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") + "/src/main/resources/drivers/chromedriver");
             driver = new ChromeDriver();
             driver.manage().window().maximize();
             driver.get("http://vins-udemy.s3.amazonaws.com/docker/docker-book-flight.html#");
