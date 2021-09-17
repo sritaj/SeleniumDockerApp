@@ -42,7 +42,7 @@ stages:
     #        latest
     - script: 
        docker build -f Dockerfile -t $(dockerId)/$(imageName) .
-       docker login -u $(dockerId) -p $(pwd)
+       docker login --username $(dockerId) --password $(pwd)
        docker push $(dockerId)/$(imageName)
     - task: CopyFiles@2
       inputs:
