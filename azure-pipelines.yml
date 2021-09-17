@@ -31,13 +31,17 @@ stages:
        testResultsFiles: '**/surefire-reports/TEST-*.xml'
        goals: 'package'
        options: '-DskipTests=true'
-    - task: Docker@2
-      displayName: Build an image
-      inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: |
-          $(tag)
+    # - task: Docker@2
+    #   displayName: Build an image
+    #   inputs:
+    #     command: build
+    #     dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+    #     tags: |
+    #       $(tag)
+    - script: |
+       docker build -f Dockerfile -t $(dockerId)/$(imageName) .
+       docker login --username $(dockerId) --password $(pwd)
+       docker push $(dockerId)/$(imageName)
     - task: CopyFiles@2
       inputs:
         Contents: '**'
@@ -45,5 +49,5 @@ stages:
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'dockerImage'
+        ArtifactName: 'seleniumDocker'
         publishLocation: 'Container'
