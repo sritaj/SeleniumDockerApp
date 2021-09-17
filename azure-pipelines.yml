@@ -37,8 +37,6 @@ stages:
         command: buildAndPush
         repository: $(repositoryName)
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        containerRegistry: |
-          $(dockerRegistryServiceConnection)
         tags: |
           - $(Build.BuildId)
           - latest
