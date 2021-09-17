@@ -32,12 +32,16 @@ stages:
        goals: 'package'
        options: '-DskipTests=true'
     - task: Docker@2
-      displayName: Build an image
+      displayName: Build and Push an image
       inputs:
-        command: build
+        command: buildAndPush
+        repository: $(repositoryName)
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        containerRegistry: |
+          $(dockerRegistryServiceConnection)
         tags: |
-          $(tag)
+          - $(Build.BuildId)
+          - latest
     - task: CopyFiles@2
       inputs:
         Contents: '**'
@@ -45,5 +49,5 @@ stages:
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'dockerImage'
+        ArtifactName: 'seleniumDocker'
         publishLocation: 'Container'
