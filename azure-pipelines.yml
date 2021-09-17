@@ -31,15 +31,19 @@ stages:
        testResultsFiles: '**/surefire-reports/TEST-*.xml'
        goals: 'package'
        options: '-DskipTests=true'
-    - task: Docker@2
-      displayName: Build and Push an image
-      inputs:
-        command: buildAndPush
-        repository: $(repositoryName)
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: |
-           $(Build.BuildId)
-           latest
+    # - task: Docker@2
+    #   displayName: Build and Push an image
+    #   inputs:
+    #     command: buildAndPush
+    #     repository: $(repositoryName)
+    #     dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+    #     tags: |
+    #        $(Build.BuildId)
+    #        latest
+    - script: 
+       docker build -f Dockerfile -t $(dockerId)/$(imageName)
+       docker login -u $(dockerId) - $(pwd)
+       docker push $(dockerId)/$(imageName)
     - task: CopyFiles@2
       inputs:
         Contents: '**'
