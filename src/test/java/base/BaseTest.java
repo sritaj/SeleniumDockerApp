@@ -20,6 +20,8 @@ public class BaseTest {
 
     protected WebDriver driver;
 
+    protected BaseTest(){}
+
     @BeforeSuite
     public void beforeSuite() {
         // Extent Report Initialization
