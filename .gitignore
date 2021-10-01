@@ -1,0 +1,10 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+/target/classes
+/target/test-classes
+/target/generated-sources
+/target/generated-test-sources
+/target/libs
+/.idea
+/.DS_Store
