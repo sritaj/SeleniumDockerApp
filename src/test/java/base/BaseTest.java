@@ -1,19 +1,18 @@
 package base;
 
-import genericMethods.PropertiesFile;
-import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
+import org.testng.ITestResult;
+import org.testng.annotations.*;
+import utilities.ExtentReportsImp;
+import utilities.PropertiesFile;
+import utilities.TakeScreenshot;
 
+import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -21,29 +20,41 @@ public class BaseTest {
 
     protected WebDriver driver;
 
+    @BeforeSuite
+    public void beforeSuite() {
+        // Extent Report Initialization
+        ExtentReportsImp.initializeReport();
+
+    }
+
     @BeforeMethod
-    public void setup() throws MalformedURLException {
+    public void setup(Method method) throws MalformedURLException {
         //BROWSER VARIABLE
         //HUB_HOST
 
         String host = "localhost";
         DesiredCapabilities dc = new DesiredCapabilities();
 
-        String runMode = PropertiesFile.getDataFromPropertyFile("localrun");
-        System.out.println(runMode);
+        // Extent Report Initialization
+        String testName = method.getName();
+        String testDescription = method.getAnnotation(Test.class).testName();
+        ExtentReportsImp.startTestExecution(testName, testDescription);
 
-        if(runMode.equalsIgnoreCase("No")){
-            if(System.getProperty("BROWSER")!=null){
-                if(System.getProperty("BROWSER").equalsIgnoreCase("chrome")){
+        //Getting Local Run status
+        String runMode = PropertiesFile.getDataFromPropertyFile("localrun");
+
+        if (runMode.equalsIgnoreCase("No")) {
+            if (System.getProperty("BROWSER") != null) {
+                if (System.getProperty("BROWSER").equalsIgnoreCase("chrome")) {
                     dc.setBrowserName(BrowserType.CHROME);
-                }else if (System.getProperty("BROWSER").equalsIgnoreCase("firefox")){
+                } else if (System.getProperty("BROWSER").equalsIgnoreCase("firefox")) {
                     dc.setBrowserName(BrowserType.FIREFOX);
                 }
-            }else{
+            } else {
                 dc.setBrowserName(BrowserType.CHROME);
             }
 
-            if(System.getProperty("HUB_HOST")!=null){
+            if (System.getProperty("HUB_HOST") != null) {
                 host = System.getProperty("HUB_HOST");
             }
 
@@ -52,8 +63,9 @@ public class BaseTest {
 
             driver.manage().window().maximize();
             driver.get("http://vins-udemy.s3.amazonaws.com/docker/docker-book-flight.html#");
-        }else if(runMode.equalsIgnoreCase("Yes")){
-            System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") + "/src/main/resources/drivers/chromedriver");
+
+        } else if (runMode.equalsIgnoreCase("Yes")) {
+            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/src/main/resources/drivers/chromedriver");
             driver = new ChromeDriver();
             driver.manage().window().maximize();
             driver.get("http://vins-udemy.s3.amazonaws.com/docker/docker-book-flight.html#");
@@ -61,7 +73,33 @@ public class BaseTest {
     }
 
     @AfterMethod
-    public void tearDown(){
+    public void tearDown(ITestResult result) throws IOException {
+        if (ITestResult.FAILURE == result.getStatus()) {
+            String testName = result.getName();
+            String screenshot = TakeScreenshot.takeScreenshotAsBase64(driver);
+            ExtentReportsImp.failTest(testName, screenshot);
+            ExtentReportsImp.failTestException(result.getThrowable());
+
+        } else if (ITestResult.SUCCESS == result.getStatus()) {
+            String testName = result.getName();
+            String screenshot = TakeScreenshot.takeScreenshotAsBase64(driver);
+            ExtentReportsImp.passTest(testName, screenshot);
+//            String testName = result.getName().toString();
+//            ExtentReportsImp.passTest(testName);
+
+        } else if (ITestResult.SKIP == result.getStatus()) {
+            String testName = result.getName();
+            String screenshot = TakeScreenshot.takeScreenshotAsBase64(driver);
+            ExtentReportsImp.skipTest(testName, screenshot);
+//            String testName = result.getName().toString();
+//            ExtentReportsImp.skipTest(testName);
+        }
+        driver.close();
         driver.quit();
+    }
+
+    @AfterSuite()
+    public void afterSuite() {
+        ExtentReportsImp.closeReport();
     }
 }
