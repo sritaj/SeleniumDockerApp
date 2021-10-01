@@ -1,6 +1,7 @@
-package genericMethods;
+package utilities;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.Properties;
 
 public class PropertiesFile {
@@ -13,9 +14,9 @@ public class PropertiesFile {
             FileInputStream fis = new FileInputStream(f);
             Properties prop = new Properties();
             prop.load(fis);
-            data = (String)prop.getProperty(key);
+            data = (String) prop.getProperty(key);
 
-        }catch (Exception e) {
+        } catch (Exception e) {
 
             System.out.println("Exception while reading data from properties file " + e.getMessage());
             e.printStackTrace();

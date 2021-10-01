@@ -1,3 +1,6 @@
-webPages/UserRegistrationPage.class
 webPages/FlightDetailsPage.class
 webPages/RegistrationConfirmationPage.class
+utilities/PropertiesFile.class
+webPages/UserRegistrationPage.class
+utilities/TakeScreenshot.class
+utilities/ExtentReportsImp.class

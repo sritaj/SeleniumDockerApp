@@ -9,28 +9,28 @@ public class UserRegistrationPage {
 
     private WebDriver driver;
 
-    @FindBy(name="firstName")
+    @FindBy(name = "firstName")
     private WebElement firstName;
 
-    @FindBy(name="lastName")
+    @FindBy(name = "lastName")
     private WebElement lastName;
 
-    @FindBy(name="phone")
+    @FindBy(name = "phone")
     private WebElement phone;
 
-    @FindBy(name="userName")
+    @FindBy(name = "userName")
     private WebElement email;
 
-    @FindBy(name="email")
+    @FindBy(name = "email")
     private WebElement userName;
 
-    @FindBy(name="password")
+    @FindBy(name = "password")
     private WebElement password;
 
-    @FindBy(name="confirmPassword")
+    @FindBy(name = "confirmPassword")
     private WebElement confirmPassword;
 
-    @FindBy(name="register")
+    @FindBy(name = "register")
     private WebElement submit;
 
     public UserRegistrationPage(WebDriver driver) {
@@ -38,20 +38,20 @@ public class UserRegistrationPage {
         PageFactory.initElements(driver, this);
     }
 
-    public void fillContactInformation(String firstName, String lastName, String phone, String email){
+    public void fillContactInformation(String firstName, String lastName, String phone, String email) {
         this.firstName.sendKeys(firstName);
         this.lastName.sendKeys(lastName);
         this.phone.sendKeys(phone);
         this.email.sendKeys(email);
     }
 
-    public void fillUserInformation(String username, String password, String confirmPassword){
+    public void fillUserInformation(String username, String password, String confirmPassword) {
         this.userName.sendKeys(username);
         this.password.sendKeys(password);
         this.confirmPassword.sendKeys(confirmPassword);
     }
 
-    public void clickSubmit(){
+    public void clickSubmit() {
         this.submit.click();
     }
 }

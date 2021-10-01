@@ -13,7 +13,7 @@ public class FlightDetailsPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    public FlightDetailsPage(WebDriver driver){
+    public FlightDetailsPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, 30);
         PageFactory.initElements(driver, this);
@@ -34,21 +34,21 @@ public class FlightDetailsPage {
     @FindBy(xpath = "//input[@name='servClass' and @value = 'First']")
     private WebElement firstClassRadioButton;
 
-    public String getPageTitle(){
+    public String getPageTitle() {
         return this.pageHeader.getText();
     }
 
-    public void waitForPageToLoad(){
+    public void waitForPageToLoad() {
         this.wait.until(ExpectedConditions.visibilityOf(pageHeader));
     }
 
-    public void selectPassengerCount(String count){
+    public void selectPassengerCount(String count) {
         Select sel = new Select(this.passengerCount);
         sel.selectByValue(count);
     }
 
     public void selectServiceClass(String input) throws Exception {
-        switch(input){
+        switch (input) {
             case "Business":
                 this.businessClassRadioButton.click();
                 break;

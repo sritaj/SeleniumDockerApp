@@ -1,4 +1,5 @@
 webPagesTest/RegistrationConfirmationPageTest.class
 base/BaseTest.class
+helperTests/LoggerTest.class
 webPagesTest/FlightDetailsPageTest.class
 webPagesTest/UserRegistrationPageTest.class

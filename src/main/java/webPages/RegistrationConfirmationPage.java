@@ -12,7 +12,7 @@ public class RegistrationConfirmationPage {
     private WebDriver driver;
     public WebDriverWait wait;
 
-    public RegistrationConfirmationPage(WebDriver driver){
+    public RegistrationConfirmationPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, 30);
         PageFactory.initElements(driver, this);
@@ -24,15 +24,15 @@ public class RegistrationConfirmationPage {
     @FindBy(xpath = "//a[@href='login.php']")
     private WebElement signInLink;
 
-    public void clickOnFligts(){
+    public void clickOnFligts() {
         this.flights.click();
     }
 
-    public void waitForPageToLoad(){
+    public void waitForPageToLoad() {
         this.wait.until(ExpectedConditions.visibilityOf(signInLink));
     }
 
-    public boolean checkSignInLink(){
+    public boolean checkSignInLink() {
         return this.signInLink.isDisplayed();
     }
 }

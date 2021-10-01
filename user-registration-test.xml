@@ -1,9 +1,9 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="flight-details-test" verbose="1">
-    <test name="Nopackage" >
+    <test name="Nopackage">
         <classes>
-            <class name="webPagesTest.UserRegistrationPageTest" />
+            <class name="webPagesTest.UserRegistrationPageTest"/>
         </classes>
     </test>
 </suite>

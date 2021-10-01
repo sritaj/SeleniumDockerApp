@@ -9,7 +9,7 @@ import webPages.UserRegistrationPage;
 public class RegistrationConfirmationPageTest extends BaseTest {
 
     @Test
-    public void fillNewUserDetailsAndClickOnFlights(){
+    public void fillNewUserDetailsAndClickOnFlights() {
         UserRegistrationPage registration = new UserRegistrationPage(driver);
         registration.fillContactInformation("Sritaj", "Kumar", "90393", "sritajp@gmail.com");
         registration.fillUserInformation("sritaj", "Hello", "Hello");
@@ -20,7 +20,7 @@ public class RegistrationConfirmationPageTest extends BaseTest {
     }
 
     @Test
-    public void checkSignInLink(){
+    public void checkSignInLink() {
         UserRegistrationPage registration = new UserRegistrationPage(driver);
         registration.fillContactInformation("Sritaj", "Kumar", "90393", "sritajp@gmail.com");
         registration.fillUserInformation("sritaj", "Hello", "Hello");
