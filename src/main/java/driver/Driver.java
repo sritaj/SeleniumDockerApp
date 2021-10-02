@@ -37,12 +37,12 @@ public final class Driver {
             dc.setBrowserName(BrowserType.CHROME);
         }
 
-        String host = null;
+        String completeURL = null;
         if (System.getProperty("HUB_HOST") != null) {
-            host = System.getProperty("HUB_HOST");
+            completeURL = "http://" + System.getProperty("HUB_HOST") + ":4444/wd/hub";
         }
 
-        String completeURL = "http://" + host + ":4444/wd/hub";
+
         DriverManager.setDriver(new RemoteWebDriver(new URL(completeURL), dc));
 
         DriverManager.getDriver().manage().window().maximize();

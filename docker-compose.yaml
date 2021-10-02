@@ -19,7 +19,7 @@ services:
     environment:
       - HUB_HOST=hub
   selenium-project:
-    image: sritaj/selenium-docker
+    image: sritaj/selenium_docker:48
     depends_on:
       - chrome
       - firefox
