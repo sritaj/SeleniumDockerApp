@@ -9,6 +9,9 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  tag: '$(Build.BuildId)'
+
 steps:
   - task: Maven@3
     inputs:
@@ -31,4 +34,8 @@ steps:
       repository: 'sritaj / selenium_docker'
       command: 'buildAndPush'
       Dockerfile: '**/Dockerfile'
+      tags: |
+        $(tag)
+        'latest'
+
 
