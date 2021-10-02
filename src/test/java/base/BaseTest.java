@@ -8,8 +8,8 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import utilities.ExtentReportsImp;
-import utilities.PropertiesFile;
-import utilities.TakeScreenshot;
+import utilities.PropertiesFileImp;
+import utilities.TakeScreenshotImp;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -43,7 +43,7 @@ public class BaseTest {
         ExtentReportsImp.startTestExecution(testName, testDescription);
 
         //Getting Local Run status
-        String runMode = PropertiesFile.getDataFromPropertyFile("localrun");
+        String runMode = PropertiesFileImp.getDataFromPropertyFile("localrun");
 
         if (runMode.equalsIgnoreCase("No")) {
             if (System.getProperty("BROWSER") != null) {
@@ -78,20 +78,20 @@ public class BaseTest {
     public void tearDown(ITestResult result) throws IOException {
         if (ITestResult.FAILURE == result.getStatus()) {
             String testName = result.getName();
-            String screenshot = TakeScreenshot.takeScreenshotAsBase64(driver);
+            String screenshot = TakeScreenshotImp.takeScreenshotAsBase64(driver);
             ExtentReportsImp.failTest(testName, screenshot);
             ExtentReportsImp.failTestException(result.getThrowable());
 
         } else if (ITestResult.SUCCESS == result.getStatus()) {
             String testName = result.getName();
-            String screenshot = TakeScreenshot.takeScreenshotAsBase64(driver);
+            String screenshot = TakeScreenshotImp.takeScreenshotAsBase64(driver);
             ExtentReportsImp.passTest(testName, screenshot);
 //            String testName = result.getName().toString();
 //            ExtentReportsImp.passTest(testName);
 
         } else if (ITestResult.SKIP == result.getStatus()) {
             String testName = result.getName();
-            String screenshot = TakeScreenshot.takeScreenshotAsBase64(driver);
+            String screenshot = TakeScreenshotImp.takeScreenshotAsBase64(driver);
             ExtentReportsImp.skipTest(testName, screenshot);
 //            String testName = result.getName().toString();
 //            ExtentReportsImp.skipTest(testName);

@@ -14,6 +14,8 @@ public class ExtentReportsImp {
     static ExtentSparkReporter spark;
     static ExtentTest test;
 
+    private ExtentReportsImp(){};
+
     public static void initializeReport() {
         extent = new ExtentReports();
         spark = new ExtentSparkReporter("target/reports/AutomationReport.html");

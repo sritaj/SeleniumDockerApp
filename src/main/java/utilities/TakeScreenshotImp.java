@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.Base64;
 
-public class TakeScreenshot {
+public class TakeScreenshotImp {
 
     /**
      * @param driver   - Webdriver instance
