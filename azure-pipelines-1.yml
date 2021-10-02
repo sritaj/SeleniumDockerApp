@@ -36,6 +36,6 @@ steps:
       Dockerfile: '**/Dockerfile'
       tags: |
         $(tag)
-        'latest'
+        latest
 
 
