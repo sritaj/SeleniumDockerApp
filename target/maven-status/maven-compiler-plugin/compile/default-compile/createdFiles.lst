@@ -1,6 +1,8 @@
+utilities/PropertiesFileImp.class
 webPages/FlightDetailsPage.class
+driver/DriverManager.class
 webPages/RegistrationConfirmationPage.class
-utilities/PropertiesFile.class
+driver/Driver.class
 webPages/UserRegistrationPage.class
-utilities/TakeScreenshot.class
+utilities/TakeScreenshotImp.class
 utilities/ExtentReportsImp.class

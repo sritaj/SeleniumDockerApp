@@ -1,6 +1,8 @@
+/Users/sritaj/Technical KnowHow/SeleniumProjects/SeleniumDockerApp/src/main/java/driver/DriverManager.java
+/Users/sritaj/Technical KnowHow/SeleniumProjects/SeleniumDockerApp/src/main/java/driver/Driver.java
 /Users/sritaj/Technical KnowHow/SeleniumProjects/SeleniumDockerApp/src/main/java/webPages/UserRegistrationPage.java
-/Users/sritaj/Technical KnowHow/SeleniumProjects/SeleniumDockerApp/src/main/java/utilities/TakeScreenshot.java
-/Users/sritaj/Technical KnowHow/SeleniumProjects/SeleniumDockerApp/src/main/java/utilities/PropertiesFile.java
+/Users/sritaj/Technical KnowHow/SeleniumProjects/SeleniumDockerApp/src/main/java/utilities/PropertiesFileImp.java
 /Users/sritaj/Technical KnowHow/SeleniumProjects/SeleniumDockerApp/src/main/java/webPages/RegistrationConfirmationPage.java
 /Users/sritaj/Technical KnowHow/SeleniumProjects/SeleniumDockerApp/src/main/java/utilities/ExtentReportsImp.java
 /Users/sritaj/Technical KnowHow/SeleniumProjects/SeleniumDockerApp/src/main/java/webPages/FlightDetailsPage.java
+/Users/sritaj/Technical KnowHow/SeleniumProjects/SeleniumDockerApp/src/main/java/utilities/TakeScreenshotImp.java

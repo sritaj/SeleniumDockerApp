@@ -1,6 +1,7 @@
 package webPagesTest;
 
 import base.BaseTest;
+import driver.DriverManager;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import webPages.FlightDetailsPage;
@@ -11,28 +12,28 @@ public class FlightDetailsPageTest extends BaseTest {
 
     @Test()
     public void setPassengersCount() {
-        UserRegistrationPage registration = new UserRegistrationPage(driver);
+        UserRegistrationPage registration = new UserRegistrationPage(DriverManager.getDriver());
         registration.fillContactInformation("Sritaj", "Kumar", "90393", "sritajp@gmail.com");
         registration.fillUserInformation("sritaj", "Hello", "Hello");
         registration.clickSubmit();
-        RegistrationConfirmationPage confirmation = new RegistrationConfirmationPage(driver);
+        RegistrationConfirmationPage confirmation = new RegistrationConfirmationPage(DriverManager.getDriver());
         confirmation.waitForPageToLoad();
         confirmation.clickOnFligts();
-        FlightDetailsPage flightDetails = new FlightDetailsPage(driver);
+        FlightDetailsPage flightDetails = new FlightDetailsPage(DriverManager.getDriver());
         flightDetails.waitForPageToLoad();
         flightDetails.selectPassengerCount("2");
     }
 
     @Test()
     public void validatePageTitle() {
-        UserRegistrationPage registration = new UserRegistrationPage(driver);
+        UserRegistrationPage registration = new UserRegistrationPage(DriverManager.getDriver());
         registration.fillContactInformation("Sritaj", "Kumar", "90393", "sritajp@gmail.com");
         registration.fillUserInformation("sritaj", "Hello", "Hello");
         registration.clickSubmit();
-        RegistrationConfirmationPage confirmation = new RegistrationConfirmationPage(driver);
+        RegistrationConfirmationPage confirmation = new RegistrationConfirmationPage(DriverManager.getDriver());
         confirmation.waitForPageToLoad();
         confirmation.clickOnFligts();
-        FlightDetailsPage flightDetails = new FlightDetailsPage(driver);
+        FlightDetailsPage flightDetails = new FlightDetailsPage(DriverManager.getDriver());
         flightDetails.waitForPageToLoad();
         String expectedPageTitle = "Flight Details Page";
         String actualPageTitle = flightDetails.getPageTitle();
@@ -41,28 +42,28 @@ public class FlightDetailsPageTest extends BaseTest {
 
     @Test()
     public void selectSeatingClass() throws Exception {
-        UserRegistrationPage registration = new UserRegistrationPage(driver);
+        UserRegistrationPage registration = new UserRegistrationPage(DriverManager.getDriver());
         registration.fillContactInformation("Sritaj", "Kumar", "90393", "sritajp@gmail.com");
         registration.fillUserInformation("sritaj", "Hello", "Hello");
         registration.clickSubmit();
-        RegistrationConfirmationPage confirmation = new RegistrationConfirmationPage(driver);
+        RegistrationConfirmationPage confirmation = new RegistrationConfirmationPage(DriverManager.getDriver());
         confirmation.waitForPageToLoad();
         confirmation.clickOnFligts();
-        FlightDetailsPage flightDetails = new FlightDetailsPage(driver);
+        FlightDetailsPage flightDetails = new FlightDetailsPage(DriverManager.getDriver());
         flightDetails.waitForPageToLoad();
         flightDetails.selectServiceClass("Business");
     }
 
     @Test(testName = "Verify Invalid Seating Seat")
     public void selectInvalidSeatingClass() throws Exception {
-        UserRegistrationPage registration = new UserRegistrationPage(driver);
+        UserRegistrationPage registration = new UserRegistrationPage(DriverManager.getDriver());
         registration.fillContactInformation("Sritaj", "Kumar", "90393", "sritajp@gmail.com");
         registration.fillUserInformation("sritaj", "Hello", "Hello");
         registration.clickSubmit();
-        RegistrationConfirmationPage confirmation = new RegistrationConfirmationPage(driver);
+        RegistrationConfirmationPage confirmation = new RegistrationConfirmationPage(DriverManager.getDriver());
         confirmation.waitForPageToLoad();
         confirmation.clickOnFligts();
-        FlightDetailsPage flightDetails = new FlightDetailsPage(driver);
+        FlightDetailsPage flightDetails = new FlightDetailsPage(DriverManager.getDriver());
         flightDetails.waitForPageToLoad();
         String expectedErrorMsg = "Invalid Service Class";
         try {

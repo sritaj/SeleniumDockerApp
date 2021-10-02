@@ -19,13 +19,13 @@ services:
     environment:
       - HUB_HOST=hub
   selenium-project:
-    image: sritaj/selenium-project
+    image: sritaj/selenium-docker
     depends_on:
       - chrome
       - firefox
     environment:
-      - BROWSER=Firefox
+      - BROWSER=Chrome
       - HUB_HOST=hub
       - MODULE=flight-details-test.xml
     volumes:
-      - /Users/sritaj/Documents/Programs/SeleniumProjects/output:/usr/share/udemy/test-output
+      - /Users/sritaj/Technical KnowHow/SeleniumProjects/output:/usr/share/udemy/test-output

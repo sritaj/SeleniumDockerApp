@@ -1,10 +1,9 @@
 package base;
 
+import driver.Driver;
+import driver.DriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import utilities.ExtentReportsImp;
@@ -14,13 +13,13 @@ import utilities.TakeScreenshotImp;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
-import java.net.URL;
 
 public class BaseTest {
 
     protected WebDriver driver;
 
-    protected BaseTest(){}
+    protected BaseTest() {
+    }
 
     @BeforeSuite
     public void beforeSuite() {
@@ -34,7 +33,6 @@ public class BaseTest {
         //BROWSER VARIABLE
         //HUB_HOST
 
-        String host = "localhost";
         DesiredCapabilities dc = new DesiredCapabilities();
 
         // Extent Report Initialization
@@ -46,31 +44,10 @@ public class BaseTest {
         String runMode = PropertiesFileImp.getDataFromPropertyFile("localrun");
 
         if (runMode.equalsIgnoreCase("No")) {
-            if (System.getProperty("BROWSER") != null) {
-                if (System.getProperty("BROWSER").equalsIgnoreCase("chrome")) {
-                    dc.setBrowserName(BrowserType.CHROME);
-                } else if (System.getProperty("BROWSER").equalsIgnoreCase("firefox")) {
-                    dc.setBrowserName(BrowserType.FIREFOX);
-                }
-            } else {
-                dc.setBrowserName(BrowserType.CHROME);
-            }
-
-            if (System.getProperty("HUB_HOST") != null) {
-                host = System.getProperty("HUB_HOST");
-            }
-
-            String completeURL = "http://" + host + ":4444/wd/hub";
-            this.driver = new RemoteWebDriver(new URL(completeURL), dc);
-
-            driver.manage().window().maximize();
-            driver.get("http://vins-udemy.s3.amazonaws.com/docker/docker-book-flight.html#");
+            Driver.gridInit();
 
         } else if (runMode.equalsIgnoreCase("Yes")) {
-            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/src/main/resources/drivers/chromedriver");
-            driver = new ChromeDriver();
-            driver.manage().window().maximize();
-            driver.get("http://vins-udemy.s3.amazonaws.com/docker/docker-book-flight.html#");
+            Driver.init();
         }
     }
 
@@ -78,26 +55,26 @@ public class BaseTest {
     public void tearDown(ITestResult result) throws IOException {
         if (ITestResult.FAILURE == result.getStatus()) {
             String testName = result.getName();
-            String screenshot = TakeScreenshotImp.takeScreenshotAsBase64(driver);
+            String screenshot = TakeScreenshotImp.takeScreenshotAsBase64(DriverManager.getDriver());
             ExtentReportsImp.failTest(testName, screenshot);
             ExtentReportsImp.failTestException(result.getThrowable());
 
         } else if (ITestResult.SUCCESS == result.getStatus()) {
             String testName = result.getName();
-            String screenshot = TakeScreenshotImp.takeScreenshotAsBase64(driver);
+            String screenshot = TakeScreenshotImp.takeScreenshotAsBase64(DriverManager.getDriver());
             ExtentReportsImp.passTest(testName, screenshot);
 //            String testName = result.getName().toString();
 //            ExtentReportsImp.passTest(testName);
 
         } else if (ITestResult.SKIP == result.getStatus()) {
             String testName = result.getName();
-            String screenshot = TakeScreenshotImp.takeScreenshotAsBase64(driver);
+            String screenshot = TakeScreenshotImp.takeScreenshotAsBase64(DriverManager.getDriver());
             ExtentReportsImp.skipTest(testName, screenshot);
 //            String testName = result.getName().toString();
 //            ExtentReportsImp.skipTest(testName);
         }
-        driver.close();
-        driver.quit();
+
+        Driver.quit();
     }
 
     @AfterSuite()

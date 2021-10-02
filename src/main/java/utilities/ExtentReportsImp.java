@@ -14,7 +14,10 @@ public class ExtentReportsImp {
     static ExtentSparkReporter spark;
     static ExtentTest test;
 
-    private ExtentReportsImp(){};
+    private ExtentReportsImp() {
+    }
+
+    ;
 
     public static void initializeReport() {
         extent = new ExtentReports();
