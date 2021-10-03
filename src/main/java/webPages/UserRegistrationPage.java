@@ -1,5 +1,6 @@
 package webPages;
 
+import driver.DriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -33,8 +34,8 @@ public class UserRegistrationPage {
     @FindBy(name = "register")
     private WebElement submit;
 
-    public UserRegistrationPage(WebDriver driver) {
-        this.driver = driver;
+    public UserRegistrationPage() {
+        this.driver = DriverManager.getDriver();
         PageFactory.initElements(driver, this);
     }
 

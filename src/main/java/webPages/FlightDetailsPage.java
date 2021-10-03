@@ -1,5 +1,6 @@
 package webPages;
 
+import driver.DriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,8 +14,8 @@ public class FlightDetailsPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    public FlightDetailsPage(WebDriver driver) {
-        this.driver = driver;
+    public FlightDetailsPage() {
+        this.driver = DriverManager.getDriver();
         this.wait = new WebDriverWait(driver, 30);
         PageFactory.initElements(driver, this);
     }
