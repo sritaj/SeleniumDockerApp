@@ -1,7 +1,6 @@
 package webPagesTest;
 
 import base.BaseTest;
-import driver.DriverManager;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import webPages.FlightDetailsPage;
@@ -17,10 +16,9 @@ public class FlightDetailsPageTest extends BaseTest {
         registration.fillUserInformation("sritaj", "Hello", "Hello");
         registration.clickSubmit();
         RegistrationConfirmationPage confirmation = new RegistrationConfirmationPage();
-        confirmation.waitForPageToLoad();
-        confirmation.clickOnFligts();
+        confirmation.clickOnFlights();
         FlightDetailsPage flightDetails = new FlightDetailsPage();
-        flightDetails.waitForPageToLoad();
+        flightDetails.waitForPageHeaderToLoad();
         flightDetails.selectPassengerCount("2");
     }
 
@@ -31,10 +29,9 @@ public class FlightDetailsPageTest extends BaseTest {
         registration.fillUserInformation("sritaj", "Hello", "Hello");
         registration.clickSubmit();
         RegistrationConfirmationPage confirmation = new RegistrationConfirmationPage();
-        confirmation.waitForPageToLoad();
-        confirmation.clickOnFligts();
+        confirmation.clickOnFlights();
         FlightDetailsPage flightDetails = new FlightDetailsPage();
-        flightDetails.waitForPageToLoad();
+        flightDetails.waitForPageHeaderToLoad();
         String expectedPageTitle = "Flight Details Page";
         String actualPageTitle = flightDetails.getPageTitle();
         Assert.assertEquals(actualPageTitle, expectedPageTitle, "Validated");
@@ -47,10 +44,9 @@ public class FlightDetailsPageTest extends BaseTest {
         registration.fillUserInformation("sritaj", "Hello", "Hello");
         registration.clickSubmit();
         RegistrationConfirmationPage confirmation = new RegistrationConfirmationPage();
-        confirmation.waitForPageToLoad();
-        confirmation.clickOnFligts();
+        confirmation.clickOnFlights();
         FlightDetailsPage flightDetails = new FlightDetailsPage();
-        flightDetails.waitForPageToLoad();
+        flightDetails.waitForPageHeaderToLoad();
         flightDetails.selectServiceClass("Business");
     }
 
@@ -61,10 +57,9 @@ public class FlightDetailsPageTest extends BaseTest {
         registration.fillUserInformation("sritaj", "Hello", "Hello");
         registration.clickSubmit();
         RegistrationConfirmationPage confirmation = new RegistrationConfirmationPage();
-        confirmation.waitForPageToLoad();
-        confirmation.clickOnFligts();
+        confirmation.clickOnFlights();
         FlightDetailsPage flightDetails = new FlightDetailsPage();
-        flightDetails.waitForPageToLoad();
+        flightDetails.waitForPageHeaderToLoad();
         String expectedErrorMsg = "Invalid Service Class";
         try {
             flightDetails.selectServiceClass("Test");

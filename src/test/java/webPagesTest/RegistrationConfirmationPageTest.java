@@ -1,7 +1,6 @@
 package webPagesTest;
 
 import base.BaseTest;
-import driver.DriverManager;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import webPages.RegistrationConfirmationPage;
@@ -16,8 +15,7 @@ public class RegistrationConfirmationPageTest extends BaseTest {
         registration.fillUserInformation("sritaj", "Hello", "Hello");
         registration.clickSubmit();
         RegistrationConfirmationPage confirmation = new RegistrationConfirmationPage();
-        confirmation.waitForPageToLoad();
-        confirmation.clickOnFligts();
+        confirmation.clickOnFlights();
     }
 
     @Test

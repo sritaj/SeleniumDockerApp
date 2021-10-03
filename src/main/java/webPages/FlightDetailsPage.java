@@ -1,63 +1,42 @@
 package webPages;
 
-import driver.DriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.By;
 
-public class FlightDetailsPage {
-
-    private WebDriver driver;
-    private WebDriverWait wait;
+public final class FlightDetailsPage extends BasePage {
 
     public FlightDetailsPage() {
-        this.driver = DriverManager.getDriver();
-        this.wait = new WebDriverWait(driver, 30);
-        PageFactory.initElements(driver, this);
+        super();
     }
 
-    @FindBy(xpath = "//h1[contains(text(),'Flight Details Page')]")
-    private WebElement pageHeader;
+    private final By pageHeader = By.xpath("//h1[contains(text(),'Flight Details Page')]");
+    private final By passengerCount = By.id("passCount");
+    private final By businessClassRadioButton = By.xpath("//input[@name='servClass' and @value = 'Business']");
+    private final By economyClassRadioButton = By.xpath("//input[@name='servClass' and @value = 'Coach']");
+    private final By firstClassRadioButton = By.xpath("//input[@name='servClass' and @value = 'First']");
 
-    @FindBy(id = "passCount")
-    private WebElement passengerCount;
-
-    @FindBy(xpath = "//input[@name='servClass' and @value = 'Business']")
-    private WebElement businessClassRadioButton;
-
-    @FindBy(xpath = "//input[@name='servClass' and @value = 'Coach']")
-    private WebElement economyClassRadioButton;
-
-    @FindBy(xpath = "//input[@name='servClass' and @value = 'First']")
-    private WebElement firstClassRadioButton;
 
     public String getPageTitle() {
-        return this.pageHeader.getText();
+        return elementHelper.getElement(pageHeader).getText();
     }
 
-    public void waitForPageToLoad() {
-        this.wait.until(ExpectedConditions.visibilityOf(pageHeader));
+    public void waitForPageHeaderToLoad() {
+        waitHelper.waitForElementVisibility(10, elementHelper.getElement(pageHeader));
     }
 
     public void selectPassengerCount(String count) {
-        Select sel = new Select(this.passengerCount);
-        sel.selectByValue(count);
+        ddHelper.selectDropDownByValue(elementHelper.getElement(passengerCount), count);
     }
 
     public void selectServiceClass(String input) throws Exception {
         switch (input) {
             case "Business":
-                this.businessClassRadioButton.click();
+                elementHelper.clickElement(businessClassRadioButton);
                 break;
             case "Coach":
-                this.economyClassRadioButton.click();
+                elementHelper.clickElement(economyClassRadioButton);
                 break;
             case "First":
-                this.firstClassRadioButton.click();
+                elementHelper.clickElement(firstClassRadioButton);
                 break;
             default:
                 throw new Exception("Invalid Service Class");

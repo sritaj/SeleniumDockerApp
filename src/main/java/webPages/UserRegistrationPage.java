@@ -1,58 +1,37 @@
 package webPages;
 
-import driver.DriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.By;
 
-public class UserRegistrationPage {
-
-    private WebDriver driver;
-
-    @FindBy(name = "firstName")
-    private WebElement firstName;
-
-    @FindBy(name = "lastName")
-    private WebElement lastName;
-
-    @FindBy(name = "phone")
-    private WebElement phone;
-
-    @FindBy(name = "userName")
-    private WebElement email;
-
-    @FindBy(name = "email")
-    private WebElement userName;
-
-    @FindBy(name = "password")
-    private WebElement password;
-
-    @FindBy(name = "confirmPassword")
-    private WebElement confirmPassword;
-
-    @FindBy(name = "register")
-    private WebElement submit;
+public final class UserRegistrationPage extends BasePage {
 
     public UserRegistrationPage() {
-        this.driver = DriverManager.getDriver();
-        PageFactory.initElements(driver, this);
+        super();
     }
 
-    public void fillContactInformation(String firstName, String lastName, String phone, String email) {
-        this.firstName.sendKeys(firstName);
-        this.lastName.sendKeys(lastName);
-        this.phone.sendKeys(phone);
-        this.email.sendKeys(email);
+    private final By firstName = By.name("firstName");
+    private final By lastName = By.name("lastName");
+    private final By phone = By.name("phone");
+    private final By userName = By.name("email");
+    private final By email = By.name("userName");
+    private final By password = By.name("password");
+    private final By confirmPassword = By.name("confirmPassword");
+    private final By submit = By.name("register");
+
+
+    public void fillContactInformation(String firstname, String lastname, String phonenumber, String emailid) {
+        elementHelper.sendKeysToElement(firstName, firstname);
+        elementHelper.sendKeysToElement(lastName, lastname);
+        elementHelper.sendKeysToElement(phone, phonenumber);
+        elementHelper.sendKeysToElement(email, emailid);
     }
 
-    public void fillUserInformation(String username, String password, String confirmPassword) {
-        this.userName.sendKeys(username);
-        this.password.sendKeys(password);
-        this.confirmPassword.sendKeys(confirmPassword);
+    public void fillUserInformation(String username, String pwd, String confirmPwd) {
+        elementHelper.sendKeysToElement(userName, username);
+        elementHelper.sendKeysToElement(password, pwd);
+        elementHelper.sendKeysToElement(confirmPassword, confirmPwd);
     }
 
     public void clickSubmit() {
-        this.submit.click();
+        elementHelper.clickElement(submit);
     }
 }

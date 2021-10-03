@@ -1,39 +1,22 @@
 package webPages;
 
-import driver.DriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.By;
 
-public class RegistrationConfirmationPage {
-
-    private WebDriver driver;
-    public WebDriverWait wait;
+public final class RegistrationConfirmationPage extends BasePage {
 
     public RegistrationConfirmationPage() {
-        this.driver = DriverManager.getDriver();
-        this.wait = new WebDriverWait(driver, 30);
-        PageFactory.initElements(driver, this);
+        super();
     }
 
-    @FindBy(linkText = "Flights")
-    private WebElement flights;
+    private final By flightLink = By.linkText("Flights");
+    private final By signInLink = By.xpath("//a[@href='login.php']");
 
-    @FindBy(xpath = "//a[@href='login.php']")
-    private WebElement signInLink;
-
-    public void clickOnFligts() {
-        this.flights.click();
-    }
-
-    public void waitForPageToLoad() {
-        this.wait.until(ExpectedConditions.visibilityOf(signInLink));
+    public void clickOnFlights() {
+        elementHelper.clickElement(flightLink);
     }
 
     public boolean checkSignInLink() {
-        return this.signInLink.isDisplayed();
+        waitHelper.waitForElementVisibility(10, elementHelper.getElement(signInLink));
+        return elementHelper.getElement(signInLink).isDisplayed();
     }
 }
