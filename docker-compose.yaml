@@ -24,7 +24,6 @@ services:
       - chrome
       - firefox
     environment:
-      - GRIDRUN=Yes
       - BROWSER=Chrome
       - HUB_HOST=hub
       - MODULE=flight-details-test.xml
