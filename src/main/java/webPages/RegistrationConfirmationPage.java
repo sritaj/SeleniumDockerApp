@@ -1,5 +1,6 @@
 package webPages;
 
+import enums.WaitStrategy;
 import org.openqa.selenium.By;
 
 public final class RegistrationConfirmationPage extends BasePage {
@@ -16,7 +17,6 @@ public final class RegistrationConfirmationPage extends BasePage {
     }
 
     public boolean checkSignInLink() {
-        waitHelper.waitForElementVisibility(10, elementHelper.getElement(signInLink));
-        return elementHelper.getElement(signInLink).isDisplayed();
+       return waitHelper.performExplicitWait(WaitStrategy.VISIBILITY, signInLink).isDisplayed();
     }
 }

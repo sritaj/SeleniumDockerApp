@@ -1,14 +1,13 @@
 package utilities;
 
 import constants.FrameworkConstants;
+import enums.ConfigProperties;
+import enums.WaitStrategy;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Properties;
+import java.util.*;
 
 public final class PropertiesFileImp {
 
@@ -37,7 +36,7 @@ public final class PropertiesFileImp {
 
     }
 
-    public static String getDataFromPropertyFile(String key) {
+    public static String getDataFromPropertyFile(ConfigProperties key) {
         try {
             if (Objects.isNull(CONFIGMAP.get(key))) {
                 System.out.println("Specified Key -> '" + key + "' is not found");
@@ -45,7 +44,7 @@ public final class PropertiesFileImp {
         } catch (NullPointerException e) {
             System.out.println("Null Pointer Exception caught " + e.getMessage());
         }
-        return CONFIGMAP.get(key);
+        return CONFIGMAP.get(key.name().toLowerCase());
     }
 
     /* //Reading from properties file with hashtable concept which is thread safe but slower

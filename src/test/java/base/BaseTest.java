@@ -2,6 +2,8 @@ package base;
 
 import driver.Driver;
 import driver.DriverManager;
+import enums.ConfigProperties;
+import enums.WaitStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestResult;
@@ -41,7 +43,7 @@ public class BaseTest {
         ExtentReportsImp.startTestExecution(testName, testDescription);
 
         //Getting Local Run status
-        String runMode = PropertiesFileImp.getDataFromPropertyFile("localrun");
+        String runMode = PropertiesFileImp.getDataFromPropertyFile(ConfigProperties.LOCALRUN);
         if (runMode.equalsIgnoreCase("No")) {
             Driver.gridInit();
 

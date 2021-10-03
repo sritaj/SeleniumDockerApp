@@ -1,5 +1,6 @@
 package webPages;
 
+import enums.WaitStrategy;
 import org.openqa.selenium.By;
 
 public final class FlightDetailsPage extends BasePage {
@@ -20,7 +21,7 @@ public final class FlightDetailsPage extends BasePage {
     }
 
     public void waitForPageHeaderToLoad() {
-        waitHelper.waitForElementVisibility(10, elementHelper.getElement(pageHeader));
+        waitHelper.performExplicitWait(WaitStrategy.VISIBILITY, pageHeader);
     }
 
     public void selectPassengerCount(String count) {

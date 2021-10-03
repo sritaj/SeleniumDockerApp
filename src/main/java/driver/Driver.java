@@ -1,6 +1,8 @@
 package driver;
 
 import constants.FrameworkConstants;
+import enums.ConfigProperties;
+import enums.WaitStrategy;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -22,7 +24,7 @@ public final class Driver {
             System.setProperty("webdriver.chrome.driver", FrameworkConstants.getChromeDriverPath());
             DriverManager.setDriver(new ChromeDriver());
             DriverManager.getDriver().manage().window().maximize();
-            DriverManager.getDriver().get(PropertiesFileImp.getDataFromPropertyFile("URL"));
+            DriverManager.getDriver().get(PropertiesFileImp.getDataFromPropertyFile(ConfigProperties.URL));
         }
     }
 
@@ -46,7 +48,8 @@ public final class Driver {
         DriverManager.setDriver(new RemoteWebDriver(new URL(completeURL), dc));
 
         DriverManager.getDriver().manage().window().maximize();
-        DriverManager.getDriver().get(PropertiesFileImp.getDataFromPropertyFile("URL"));
+        DriverManager.getDriver().get(PropertiesFileImp.getDataFromPropertyFile(ConfigProperties.URL
+        ));
     }
 
     public static void quit() {
