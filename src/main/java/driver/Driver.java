@@ -42,7 +42,6 @@ public final class Driver {
             completeURL = "http://" + System.getProperty("HUB_HOST") + ":4444/wd/hub";
         }
 
-
         DriverManager.setDriver(new RemoteWebDriver(new URL(completeURL), dc));
 
         DriverManager.getDriver().manage().window().maximize();

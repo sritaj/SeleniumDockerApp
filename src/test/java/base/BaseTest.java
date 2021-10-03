@@ -42,8 +42,7 @@ public class BaseTest {
 
         //Getting Local Run status
         String runMode = PropertiesFileImp.getDataFromPropertyFile("localrun");
-        System.out.println(runMode);
-        if (runMode.equalsIgnoreCase("No")) {
+        if (runMode.equalsIgnoreCase("No") || System.getProperty("GRIDRUN").equalsIgnoreCase("Yes")) {
             Driver.gridInit();
 
         } else if (runMode.equalsIgnoreCase("Yes")) {
