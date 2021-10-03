@@ -1,5 +1,7 @@
 package utilities;
 
+import constants.FrameworkConstants;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -19,7 +21,7 @@ public final class PropertiesFileImp {
     //defining the properties file load in static block so that it can be initialized once
     static {
         try {
-            File f = new File(System.getProperty("user.dir") + "/src/main/resources/config/config.properties");
+            File f = new File(FrameworkConstants.getPropertiesFilePath());
             FileInputStream fis = new FileInputStream(f);
             prop.load(fis);
 

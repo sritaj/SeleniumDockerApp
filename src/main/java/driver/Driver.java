@@ -1,5 +1,6 @@
 package driver;
 
+import constants.FrameworkConstants;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -18,7 +19,7 @@ public final class Driver {
     public static void init() {
 
         if (Objects.isNull(DriverManager.getDriver())) {
-            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/src/main/resources/drivers/chromedriver");
+            System.setProperty("webdriver.chrome.driver", FrameworkConstants.getChromeDriverPath());
             DriverManager.setDriver(new ChromeDriver());
             DriverManager.getDriver().manage().window().maximize();
             DriverManager.getDriver().get(PropertiesFileImp.getDataFromPropertyFile("URL"));
