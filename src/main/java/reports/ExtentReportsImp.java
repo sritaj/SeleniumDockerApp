@@ -1,4 +1,4 @@
-package utilities;
+package reports;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -31,28 +31,28 @@ public final class ExtentReportsImp {
     }
 
     public static void startTestExecution(String testName, String description) {
-        test = extent.createTest(testName, description);
+         ExtentReportManager.setTest(extent.createTest(testName, description));
     }
 
     public static void passTest(String testName) {
-        test.log(Status.PASS, testName + " Test Case is PASSED");
+        ExtentReportManager.getTest().log(Status.PASS, testName + " Test Case is PASSED");
     }
 
     public static void passTest(String testName, String screenshot) {
-        test.log(Status.PASS, testName + " Test Case is PASSED").addScreenCaptureFromBase64String(screenshot);
+        ExtentReportManager.getTest().log(Status.PASS, testName + " Test Case is PASSED").addScreenCaptureFromBase64String(screenshot);
         // test.pass(testName + " Test Case is PASSED", MediaEntityBuilder.createScreenCaptureFromPath(screenshot).build());
     }
 
     public static void skipTest(String testName) {
-        test.log(Status.SKIP, testName + " Test Case is SKIPPED");
+        ExtentReportManager.getTest().log(Status.SKIP, testName + " Test Case is SKIPPED");
     }
 
     public static void skipTest(String testName, String screenshot) {
-        test.log(Status.SKIP, testName + " Test Case is SKIPPED").addScreenCaptureFromPath(screenshot);
+        ExtentReportManager.getTest().log(Status.SKIP, testName + " Test Case is SKIPPED").addScreenCaptureFromPath(screenshot);
     }
 
     public static void failTest(String testName) {
-        test.log(Status.FAIL, testName + " Test Case is FAILED");
+        ExtentReportManager.getTest().log(Status.FAIL, testName + " Test Case is FAILED");
     }
 
     public static void failTest(String testName, String screenshot) {
