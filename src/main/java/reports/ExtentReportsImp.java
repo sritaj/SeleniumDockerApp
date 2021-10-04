@@ -4,6 +4,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
+import constants.FrameworkConstants;
 import utilities.TakeScreenshotImp;
 
 import java.util.Objects;
@@ -21,7 +22,7 @@ public final class ExtentReportsImp {
     public static void initializeReport() {
         if (Objects.isNull(extent)) {
             extent = new ExtentReports();
-            spark = new ExtentSparkReporter("target/reports/AutomationReport.html");
+            spark = new ExtentSparkReporter(FrameworkConstants.getExtentReportPath() + "AutomationReport.html");
             spark.config().setTheme(Theme.DARK);
             spark.config().setDocumentTitle("AutomationReport");
             spark.config().setReportName("Selenium Docker App");
