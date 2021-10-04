@@ -20,10 +20,7 @@ public final class ElementHelper {
 
     public void clickElement(By locator) {
         getElement(locator).click();
-        if(getElement(locator).getAttribute("name")!=null){
-            ExtentReportsImp.logSteps("Clicked on '"+getElement(locator).getAttribute("name")+ "'");
-        }
-
+        ExtentReportsImp.logSteps(getElement(locator).getAttribute("name"));
     }
 
     public void sendKeysToElement(By locator, String input) {
