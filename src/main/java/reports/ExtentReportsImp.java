@@ -6,25 +6,28 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
-import java.io.IOException;
+import java.util.Objects;
 
-public class ExtentReportsImp {
 
-    static ExtentReports extent;
-    static ExtentSparkReporter spark;
-    static ExtentTest test;
+public final class ExtentReportsImp {
+
+    private static ExtentReports extent;
+    private static ExtentSparkReporter spark;
+    private static ExtentTest test;
 
     private ExtentReportsImp() {
     }
 
-    ;
 
     public static void initializeReport() {
-        extent = new ExtentReports();
-        spark = new ExtentSparkReporter("target/reports/AutomationReport.html");
-        spark.config().setTheme(Theme.DARK);
-        spark.config().setDocumentTitle("AutomationReport");
-        extent.attachReporter(spark);
+        if(Objects.isNull(extent)){
+            extent = new ExtentReports();
+            spark = new ExtentSparkReporter("target/reports/AutomationReport.html");
+            spark.config().setTheme(Theme.DARK);
+            spark.config().setDocumentTitle("AutomationReport");
+            spark.config().setReportName("Selenium Docker App");
+            extent.attachReporter(spark);
+        }
     }
 
     public static void startTestExecution(String testName, String description) {
@@ -48,11 +51,11 @@ public class ExtentReportsImp {
         test.log(Status.SKIP, testName + " Test Case is SKIPPED").addScreenCaptureFromPath(screenshot);
     }
 
-    public static void failTest(String testName) throws IOException {
+    public static void failTest(String testName) {
         test.log(Status.FAIL, testName + " Test Case is FAILED");
     }
 
-    public static void failTest(String testName, String screenshot) throws IOException {
+    public static void failTest(String testName, String screenshot) {
         test.log(Status.FAIL, testName + " Test Case is FAILED").addScreenCaptureFromPath(screenshot);
     }
 
@@ -60,7 +63,9 @@ public class ExtentReportsImp {
         test.fail(throwable);
     }
 
-    public static void closeReport() {
-        extent.flush();
+    public static void flushReports() {
+        if(Objects.nonNull(extent)){
+            extent.flush();
+        }
     }
 }

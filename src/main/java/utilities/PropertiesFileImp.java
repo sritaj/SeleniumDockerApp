@@ -2,7 +2,6 @@ package utilities;
 
 import constants.FrameworkConstants;
 import enums.ConfigProperties;
-import enums.WaitStrategy;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,20 +30,24 @@ public final class PropertiesFileImp {
 
             //prop.entrySet().forEach(entry -> CONFIGMAP.put(String.valueOf(entry.getKey()), String.valueOf(entry.getValue())));
         } catch (IOException e) {
-            System.out.println("Properties file couldn't be found" + e.getMessage());
+            System.err.println("Properties file couldn't be found" + e.getMessage());
         }
 
     }
 
     public static String getDataFromPropertyFile(ConfigProperties key) {
+        String property = null;
         try {
             if (Objects.isNull(CONFIGMAP.get(key))) {
-                System.out.println("Specified Key -> '" + key + "' is not found");
+                property = CONFIGMAP.get(key.name().toLowerCase());
             }
         } catch (NullPointerException e) {
-            System.out.println("Null Pointer Exception caught " + e.getMessage());
+            System.err.println("Null pointer exception" + e.getMessage());
         }
-        return CONFIGMAP.get(key.name().toLowerCase());
+        if(property==null){
+            throw new NullPointerException("Specified Key -> '" + property + "' is not found in config properties");
+        }
+        return property;
     }
 
     /* //Reading from properties file with hashtable concept which is thread safe but slower
