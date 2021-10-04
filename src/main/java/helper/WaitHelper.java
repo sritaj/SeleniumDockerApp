@@ -21,13 +21,13 @@ public final class WaitHelper {
 
     public WebElement performExplicitWait(WaitStrategy waitType, By locator) {
         WebElement element = null;
-        if(waitType == WaitStrategy.VISIBILITY){
+        if (waitType == WaitStrategy.VISIBILITY) {
             element = new WebDriverWait(driver, FrameworkConstants.getExplicitWaitTimeOut()).until(ExpectedConditions.visibilityOfElementLocated(locator));
-        }else if(waitType == WaitStrategy.PRESENCE){
+        } else if (waitType == WaitStrategy.PRESENCE) {
             element = new WebDriverWait(driver, FrameworkConstants.getExplicitWaitTimeOut()).until(ExpectedConditions.presenceOfElementLocated(locator));
-        }else if(waitType == WaitStrategy.CLICKABLE){
+        } else if (waitType == WaitStrategy.CLICKABLE) {
             element = new WebDriverWait(driver, FrameworkConstants.getExplicitWaitTimeOut()).until(ExpectedConditions.elementToBeClickable(locator));
-        }else if(waitType == WaitStrategy.NONE){
+        } else if (waitType == WaitStrategy.NONE) {
             return elementHelper.getElement(locator);
         }
         return element;

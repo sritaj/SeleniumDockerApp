@@ -6,7 +6,10 @@ import enums.ConfigProperties;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Properties;
 
 public final class PropertiesFileImp {
 
@@ -44,7 +47,7 @@ public final class PropertiesFileImp {
         } catch (NullPointerException e) {
             System.err.println("Null pointer exception" + e.getMessage());
         }
-        if(property==null){
+        if (property == null) {
             throw new NullPointerException("Specified Key -> '" + property + "' is not found in config properties");
         }
         return property;

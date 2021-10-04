@@ -18,6 +18,6 @@ public final class RegistrationConfirmationPage extends BasePage {
     }
 
     public boolean waitForSignInLink() {
-       return waitHelper.performExplicitWait(WaitStrategy.VISIBILITY, signInLink).isDisplayed();
+        return waitHelper.performExplicitWait(WaitStrategy.VISIBILITY, signInLink).isDisplayed();
     }
 }

@@ -2,7 +2,6 @@ package driver;
 
 import constants.FrameworkConstants;
 import enums.ConfigProperties;
-import enums.WaitStrategy;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.DesiredCapabilities;
