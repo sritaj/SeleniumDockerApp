@@ -15,6 +15,7 @@ public class RegistrationConfirmationPageTest extends BaseTest {
         registration.fillUserInformation("sritaj", "Hello", "Hello");
         registration.clickSubmit();
         RegistrationConfirmationPage confirmation = new RegistrationConfirmationPage();
+        confirmation.waitForSignInLink();
         confirmation.clickOnFlights();
     }
 
@@ -25,7 +26,7 @@ public class RegistrationConfirmationPageTest extends BaseTest {
         registration.fillUserInformation("sritaj", "Hello", "Hello");
         registration.clickSubmit();
         RegistrationConfirmationPage confirmation = new RegistrationConfirmationPage();
-        Assert.assertTrue(confirmation.checkSignInLink(), "Validate");
+        Assert.assertTrue(confirmation.waitForSignInLink(), "Validate");
     }
 
 }

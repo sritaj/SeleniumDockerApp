@@ -9,14 +9,15 @@ public final class RegistrationConfirmationPage extends BasePage {
         super();
     }
 
-    private final By flightLink = By.linkText("Flights");
+    private final By flightLink = By.xpath("//a[normalize-space()='Flights']");
     private final By signInLink = By.xpath("//a[@href='login.php']");
 
     public void clickOnFlights() {
+        waitForSignInLink();
         elementHelper.clickElement(flightLink);
     }
 
-    public boolean checkSignInLink() {
+    public boolean waitForSignInLink() {
        return waitHelper.performExplicitWait(WaitStrategy.VISIBILITY, signInLink).isDisplayed();
     }
 }
