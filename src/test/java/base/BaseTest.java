@@ -1,7 +1,6 @@
 package base;
 
 import driver.Driver;
-import driver.DriverManager;
 import enums.ConfigProperties;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -9,7 +8,6 @@ import org.testng.ITestResult;
 import org.testng.annotations.*;
 import reports.ExtentReportsImp;
 import utilities.PropertiesFileImp;
-import utilities.TakeScreenshotImp;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -55,23 +53,16 @@ public class BaseTest {
     public void tearDown(ITestResult result) throws IOException {
         if (ITestResult.FAILURE == result.getStatus()) {
             String testName = result.getName();
-            String screenshot = TakeScreenshotImp.takeScreenshotAsBase64(DriverManager.getDriver());
-            ExtentReportsImp.failTest(testName, screenshot);
+            ExtentReportsImp.failTest(testName, PropertiesFileImp.getDataFromPropertyFile(ConfigProperties.SCREENSHOTONFAIL));
             ExtentReportsImp.failTestException(result.getThrowable());
 
         } else if (ITestResult.SUCCESS == result.getStatus()) {
             String testName = result.getName();
-            String screenshot = TakeScreenshotImp.takeScreenshotAsBase64(DriverManager.getDriver());
-            ExtentReportsImp.passTest(testName, screenshot);
-//            String testName = result.getName().toString();
-//            ExtentReportsImp.passTest(testName);
+            ExtentReportsImp.passTest(testName, PropertiesFileImp.getDataFromPropertyFile(ConfigProperties.SCREENSHOTONPASS));
 
         } else if (ITestResult.SKIP == result.getStatus()) {
             String testName = result.getName();
-            String screenshot = TakeScreenshotImp.takeScreenshotAsBase64(DriverManager.getDriver());
-            ExtentReportsImp.skipTest(testName, screenshot);
-//            String testName = result.getName().toString();
-//            ExtentReportsImp.skipTest(testName);
+            ExtentReportsImp.skipTest(testName, PropertiesFileImp.getDataFromPropertyFile(ConfigProperties.SCREENSHOTONSKIP));
         }
 
         Driver.quit();
