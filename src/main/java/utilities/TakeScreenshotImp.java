@@ -10,8 +10,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.Base64;
 
-public class TakeScreenshotImp {
+public final class TakeScreenshotImp {
 
+    private TakeScreenshotImp(){}
     /**
      * @param driver   - Webdriver instance
      * @param testName - Test Name
@@ -24,7 +25,7 @@ public class TakeScreenshotImp {
             dest = System.getProperty("user.dir") + "/target/screenshots/" + testName + ".png";
             FileHandler.copy(srcFile, new File(dest));
         } catch (Exception e) {
-            System.out.println("Exception while taking screenshot " + e.getMessage());
+            System.err.println("Exception while taking screenshot " + e.getMessage());
         }
         return dest;
     }
@@ -44,7 +45,7 @@ public class TakeScreenshotImp {
             byte[] imageBytes = IOUtils.toByteArray(new FileInputStream(dest));
             path = Base64.getEncoder().encodeToString(imageBytes);
         } catch (Exception e) {
-            System.out.println("Exception while taking screenshot " + e.getMessage());
+            System.err.println("Exception while taking screenshot " + e.getMessage());
         }
         return path;
     }
@@ -61,7 +62,7 @@ public class TakeScreenshotImp {
             String scnShot = newScreen.getScreenshotAs(OutputType.BASE64);
             return "data:image/jpg;base64, " + scnShot;
         } catch (Exception e) {
-            System.out.println("Exception while taking screenshot " + e.getMessage());
+            System.err.println("Exception while taking screenshot " + e.getMessage());
         }
         return path;
     }

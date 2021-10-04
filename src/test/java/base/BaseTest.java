@@ -3,12 +3,11 @@ package base;
 import driver.Driver;
 import driver.DriverManager;
 import enums.ConfigProperties;
-import enums.WaitStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
-import utilities.ExtentReportsImp;
+import reports.ExtentReportsImp;
 import utilities.PropertiesFileImp;
 import utilities.TakeScreenshotImp;
 
@@ -80,6 +79,6 @@ public class BaseTest {
 
     @AfterSuite()
     public void afterSuite() {
-        ExtentReportsImp.closeReport();
+        ExtentReportsImp.flushReports();
     }
 }
