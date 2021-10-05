@@ -15,16 +15,20 @@ public final class RetryAnalyzer implements IRetryAnalyzer {
 
     @Override
     public boolean retry(ITestResult result) {
-
-        if(count<maxAttempt){
-            count++;
-            return true;
+        if(PropertiesFileImp.getDataFromPropertyFile(ConfigProperties.RETRYFAILEDTEST).equalsIgnoreCase("yes")){
+            if(count<maxAttempt){
+                count++;
+                return true;
+            }else{
+                String testName = result.getName();
+                ExtentReportsImp.failTest(testName, PropertiesFileImp.getDataFromPropertyFile(ConfigProperties.SCREENSHOTONFAIL));
+                ExtentReportsImp.failTestException(result.getThrowable());
+            }
         }else{
             String testName = result.getName();
             ExtentReportsImp.failTest(testName, PropertiesFileImp.getDataFromPropertyFile(ConfigProperties.SCREENSHOTONFAIL));
             ExtentReportsImp.failTestException(result.getThrowable());
         }
-
         return false;
     }
 
