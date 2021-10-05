@@ -2,8 +2,10 @@ package base;
 
 import driver.Driver;
 import enums.ConfigProperties;
-import org.openqa.selenium.WebDriver;
+import listeners.RetryAnalyzer;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.ITestContext;
+import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import reports.ExtentReportsImp;
@@ -15,16 +17,18 @@ import java.net.MalformedURLException;
 
 public class BaseTest {
 
-    protected WebDriver driver;
-
     protected BaseTest() {
     }
 
     @BeforeSuite
-    public void beforeSuite() {
+    public void beforeSuite(ITestContext context) {
         // Extent Report Initialization
         ExtentReportsImp.initializeReport();
 
+        //Initializing Tests with Retry Analyzer Annotation
+        for(ITestNGMethod method : context.getAllTestMethods()){
+            method.setRetryAnalyzerClass(RetryAnalyzer.class);
+        }
     }
 
     @BeforeMethod
@@ -52,9 +56,8 @@ public class BaseTest {
     @AfterMethod
     public void tearDown(ITestResult result) throws IOException {
         if (ITestResult.FAILURE == result.getStatus()) {
-            String testName = result.getName();
-            ExtentReportsImp.failTest(testName, PropertiesFileImp.getDataFromPropertyFile(ConfigProperties.SCREENSHOTONFAIL));
-            ExtentReportsImp.failTestException(result.getThrowable());
+            RetryAnalyzer rerun = new RetryAnalyzer();
+            rerun.retry(result);
 
         } else if (ITestResult.SUCCESS == result.getStatus()) {
             String testName = result.getName();

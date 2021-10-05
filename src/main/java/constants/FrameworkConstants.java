@@ -16,6 +16,7 @@ public final class FrameworkConstants {
     private static final String PROPERTIESFILEPATH = RESOURCEPATH + "/src/main/resources/config/config.properties";
     private static final String EXTENTREPORTSPATH = RESOURCEPATH + "/target/reports/";
     private static final int EXPLICITWAIT_TIMEOUT = 10;
+    private static final int RETRYCOUNTS = 1;
 
     public static String getChromeDriverPath() {
         return CHROMEDRIVERPATH;
@@ -34,5 +35,9 @@ public final class FrameworkConstants {
             return EXTENTREPORTSPATH;
         }
         return EXTENTREPORTSPATH + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + "/";
+    }
+
+    public static int getRetryCounts() {
+        return RETRYCOUNTS;
     }
 }
