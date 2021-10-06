@@ -5,6 +5,7 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import constants.FrameworkConstants;
+import listeners.CustomAnnotations;
 import org.testng.annotations.Test;
 import utilities.TakeScreenshotImp;
 
@@ -77,5 +78,14 @@ public final class ExtentReportsImp {
     public static void addDetails(Method method){
         ExtentReportManager.getTest().assignCategory(method.getAnnotation(Test.class).groups())
                 .assignCategory(method.getAnnotation(Test.class).suiteName());
+    }
+
+    public static void addCustomDetails(Method method){
+        try{
+            ExtentReportManager.getTest().assignCategory(method.getAnnotation(CustomAnnotations.class).testCaseType());
+        }catch (NullPointerException e){
+            ExtentReportsImp.logSteps("Error " + e.getMessage());
+        }
+
     }
 }
