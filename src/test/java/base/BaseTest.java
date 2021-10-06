@@ -11,7 +11,6 @@ import org.testng.annotations.*;
 import reports.ExtentReportsImp;
 import utilities.PropertiesFileImp;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 
@@ -56,6 +55,7 @@ public class BaseTest {
     @AfterMethod
     public void tearDown(ITestResult result, Method method) {
         ExtentReportsImp.addDetails(method);
+        ExtentReportsImp.addCustomDetails(method);
         if (ITestResult.FAILURE == result.getStatus()) {
             RetryAnalyzer rerun = new RetryAnalyzer();
             rerun.retry(result);
