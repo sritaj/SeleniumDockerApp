@@ -54,7 +54,8 @@ public class BaseTest {
     }
 
     @AfterMethod
-    public void tearDown(ITestResult result) throws IOException {
+    public void tearDown(ITestResult result, Method method) {
+        ExtentReportsImp.addDetails(method);
         if (ITestResult.FAILURE == result.getStatus()) {
             RetryAnalyzer rerun = new RetryAnalyzer();
             rerun.retry(result);

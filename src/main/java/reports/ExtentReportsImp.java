@@ -5,8 +5,10 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import constants.FrameworkConstants;
+import org.testng.annotations.Test;
 import utilities.TakeScreenshotImp;
 
+import java.lang.reflect.Method;
 import java.util.Objects;
 
 
@@ -70,5 +72,10 @@ public final class ExtentReportsImp {
         if (Objects.nonNull(extent)) {
             extent.flush();
         }
+    }
+
+    public static void addDetails(Method method){
+        ExtentReportManager.getTest().assignCategory(method.getAnnotation(Test.class).groups())
+                .assignCategory(method.getAnnotation(Test.class).suiteName());
     }
 }
