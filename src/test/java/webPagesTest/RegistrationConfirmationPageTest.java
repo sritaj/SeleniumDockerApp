@@ -1,6 +1,7 @@
 package webPagesTest;
 
 import base.BaseTest;
+import listeners.CustomAnnotations;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import webPages.RegistrationConfirmationPage;
@@ -8,6 +9,7 @@ import webPages.UserRegistrationPage;
 
 public class RegistrationConfirmationPageTest extends BaseTest {
 
+    @CustomAnnotations(testCaseType = "")
     @Test
     public void fillNewUserDetailsAndClickOnFlights() {
         UserRegistrationPage registration = new UserRegistrationPage();

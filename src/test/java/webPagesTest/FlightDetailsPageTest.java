@@ -1,6 +1,7 @@
 package webPagesTest;
 
 import base.BaseTest;
+import listeners.CustomAnnotations;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import webPages.FlightDetailsPage;
@@ -9,7 +10,8 @@ import webPages.UserRegistrationPage;
 
 public class FlightDetailsPageTest extends BaseTest {
 
-    @Test()
+    @CustomAnnotations(testCaseType = {})
+    @Test(groups = "Regression")
     public void setPassengersCount() {
         UserRegistrationPage registration = new UserRegistrationPage();
         registration.fillContactInformation("Sritaj", "Kumar", "90393", "sritajp@gmail.com");
@@ -22,7 +24,8 @@ public class FlightDetailsPageTest extends BaseTest {
         flightDetails.selectPassengerCount("2");
     }
 
-    @Test()
+    @CustomAnnotations(testCaseType = {"Client Feedback", "Enhancement Request"})
+    @Test(groups = "Smoke", suiteName = "FlightDetails")
     public void validatePageTitle() {
         UserRegistrationPage registration = new UserRegistrationPage();
         registration.fillContactInformation("Sritaj", "Kumar", "90393", "sritajp@gmail.com");
@@ -37,7 +40,7 @@ public class FlightDetailsPageTest extends BaseTest {
         Assert.assertEquals(actualPageTitle, expectedPageTitle, "Validated");
     }
 
-    @Test()
+    @Test(groups = "Regression")
     public void selectSeatingClass() throws Exception {
         UserRegistrationPage registration = new UserRegistrationPage();
         registration.fillContactInformation("Sritaj", "Kumar", "90393", "sritajp@gmail.com");
@@ -50,7 +53,8 @@ public class FlightDetailsPageTest extends BaseTest {
         flightDetails.selectServiceClass("Business");
     }
 
-    @Test(testName = "Verify Invalid Seating Seat")
+    @CustomAnnotations()
+    @Test(testName = "Verify Invalid Seating Seat", groups = "Regression")
     public void selectInvalidSeatingClass() throws Exception {
         UserRegistrationPage registration = new UserRegistrationPage();
         registration.fillContactInformation("Sritaj", "Kumar", "90393", "sritajp@gmail.com");
