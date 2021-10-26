@@ -1,16 +1,17 @@
 pipeline {
-  agent {
-        docker {
-            image 'maven:3-alpine' 
-            args '-v /root/.m2:/root/.m2' 
-        }
+  agent any 
+  environment {
+        dockerHome = tool 'myDocker'
+        mavenHome = tool 'myMaven'
+        PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
   }
   stages {
     stage('Build') {
       steps {
-        sh 'mvn clean package -DskipTests'
+        sh 'mvn --version'
       }
     }
+  }
     // stage('Docker Build') {
     //   agent any
     //   steps {
@@ -26,5 +27,4 @@ pipeline {
     //     }
     //   }
     // }
-  }
 }
