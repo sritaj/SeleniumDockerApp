@@ -26,17 +26,17 @@ pipeline {
     }
     // Pushing the Docker Credentials
     stage('Push Docker Image') {
-      steps {
-        script {
-          docker.withRegistry("", "dockerHub") {
-            dockerImage.push("${env.BUILD_TAG}");
-            dockerImage.push("latest");
-          }
+      // steps {
+      //   script {
+      //     docker.withRegistry("", "dockerHub") {
+      //       dockerImage.push("${env.BUILD_TAG}");
+      //       dockerImage.push("latest");
+      //     }
+      //   }
+        withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+          sh 'docker push sritaj/selenium_docker:latest'
         }
-        // withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-        //   sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-        //   sh 'docker push sritaj/selenium_docker:latest'
-        // }
       }
     }
   }
