@@ -1,9 +1,10 @@
 pipeline {
   agent any 
-  // Specifying the environments configured under Jenkins Global Configuration
+  // Specifying the environments configured under Jenkins Global Configuration/Keys
   environment {
         dockerHome = tool 'myDocker'
         mavenHome = tool 'myMaven'
+        registryCredential = 'dockerHub'
         PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
   }
   
@@ -24,21 +25,21 @@ pipeline {
         
       }
     }
-    // Pushing the Docker Credentials
+    // Pushing the Docker Image
     stage('Push Docker Image') {
-      // steps {
-      //   script {
-      //     docker.withRegistry("", "dockerHub") {
-      //       dockerImage.push("${env.BUILD_TAG}");
-      //       dockerImage.push("latest");
-      //     }
-      //   }
-      steps{
-        withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-          sh 'docker push sritaj/selenium_docker:latest'
+      steps {
+        script{
+          docker.withRegistry('', registryCredential){
+            dockerImage.push('latest')
+          }
         }
-      }  
+      }     
+      // steps{
+      //   withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+      //     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+      //     sh 'docker push sritaj/selenium_docker:latest'
+      //   }
+      // }  
     }
   }
 }
