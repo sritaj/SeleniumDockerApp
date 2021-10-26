@@ -1,10 +1,10 @@
 pipeline {
   agent none
   stages {
-    stage('Maven Install') {
+    stage('Maven Install and JAR Builds') {
       agent {
         any {
-          image 'maven:3-alpine'
+          image 'maven:3.8.3-openjdk-8-slim'
         }
       }
       steps {
