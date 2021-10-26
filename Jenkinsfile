@@ -1,29 +1,42 @@
 pipeline {
   agent any 
+  // Specifying the environments configured under Jenkins Global Configuration
   environment {
         dockerHome = tool 'myDocker'
         mavenHome = tool 'myMaven'
         PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
   }
+  
   stages {
+    // Creating the JAR files
     stage('Build') {
       steps {
         sh 'mvn clean package -DskipTests'
       }
     }
-    stage('Docker Build') {
-      agent any
+    // Creating the Docker Image
+    stage('Build Docker Image') {
       steps {
-        sh 'docker build -t sritaj/selenium_docker:latest .'
+        // "docker build -t sritaj/selenium_docker:latest ."
+        script {
+          docker.build("sritaj/selenium_docker:${env.BUILD_TAG}")
+        }
+        
       }
     }
-    stage('Docker Push') {
-      agent any
+    // Pushing the Docker Credentials
+    stage('Push Docker Image') {
       steps {
-        withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-          sh 'docker push sritaj/selenium_docker:latest'
+        script {
+          docker.withRegistry("", "dockerHub") {
+            dockerImage.push();
+            dockerImage.push("latest");
+          }
         }
+        // withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+        //   sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+        //   sh 'docker push sritaj/selenium_docker:latest'
+        // }
       }
     }
   }
