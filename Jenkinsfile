@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Maven Install and JAR Builds') {
       agent {
-        any {
+        docker {
           image 'maven:3.8.3-openjdk-8-slim'
         }
       }
