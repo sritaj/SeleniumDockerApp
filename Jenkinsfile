@@ -19,7 +19,7 @@ pipeline {
       steps {
         // "docker build -t sritaj/selenium_docker:latest ."
         script {
-          docker.build("sritaj/selenium_docker:${env.BUILD_TAG}")
+          docker.build("sritaj/selenium_docker")
         }
         
       }
@@ -29,7 +29,7 @@ pipeline {
       steps {
         script {
           docker.withRegistry("", "dockerHub") {
-            dockerImage.push();
+            dockerImage.push("${env.BUILD_TAG}");
             dockerImage.push("latest");
           }
         }
