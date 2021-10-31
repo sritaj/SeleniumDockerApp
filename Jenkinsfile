@@ -2,10 +2,7 @@ pipeline {
   agent any 
   // Specifying the environments configured under Jenkins Global Configuration/Keys
   environment {
-        dockerHome = tool 'myDocker'
-        mavenHome = tool 'myMaven'
         registryCredential = 'dockerHub'
-        PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
   }
   
   stages {
@@ -30,6 +27,7 @@ pipeline {
       steps {
         script{
           docker.withRegistry('', registryCredential){
+            dockerImage.push("${BUILD_NUMBER}")
             dockerImage.push('latest')
           }
         }
