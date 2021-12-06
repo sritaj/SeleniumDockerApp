@@ -32,4 +32,12 @@ public final class WaitHelper {
         }
         return element;
     }
+
+    public boolean performExplicitWaitAndGetState(WaitStrategy waitType, By locator) {
+        boolean state = false;
+        if (waitType == WaitStrategy.INVISIBILITY) {
+            state = new WebDriverWait(driver, FrameworkConstants.getExplicitWaitTimeOut()).until(ExpectedConditions.invisibilityOfElementLocated(locator));
+        }
+        return state;
+    }
 }

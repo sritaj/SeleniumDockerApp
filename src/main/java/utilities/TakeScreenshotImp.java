@@ -32,7 +32,6 @@ public final class TakeScreenshotImp {
     }
 
     /**
-     * @param driver   - Webdriver instance
      * @param testName - Test Name
      * @return - Image Path
      */

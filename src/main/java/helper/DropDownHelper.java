@@ -18,4 +18,12 @@ public final class DropDownHelper {
         select = new Select(element);
         select.selectByValue(value);
     }
+
+    public void clickSpanDropDown(WebElement dropdown) {
+        dropdown.click();
+    }
+
+    public void selectSpanDropDownOption(WebElement dropdownOption) {
+        dropdownOption.click();
+    }
 }
