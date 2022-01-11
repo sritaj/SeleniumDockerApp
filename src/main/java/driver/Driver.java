@@ -2,6 +2,7 @@ package driver;
 
 import constants.FrameworkConstants;
 import enums.ConfigProperties;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -20,7 +21,8 @@ public final class Driver {
     public static void init() {
 
         if (Objects.isNull(DriverManager.getDriver())) {
-            System.setProperty("webdriver.chrome.driver", FrameworkConstants.getChromeDriverPath());
+            WebDriverManager.chromedriver().setup();
+//            System.setProperty("webdriver.chrome.driver", FrameworkConstants.getChromeDriverPath());
             DriverManager.setDriver(new ChromeDriver());
             DriverManager.getDriver().manage().window().maximize();
             DriverManager.getDriver().get(PropertiesFileImp.getDataFromPropertyFile(ConfigProperties.URL));
