@@ -1,13 +1,18 @@
 version: "3"
 services:
-  hub:
-    image: selenium/hub:latest
-    ports:
-      - "4444:4444"
   chrome:
     image: selenium/node-chrome:latest
     shm_size: '1gb'
     depends_on:
       - hub
     environment:
-      - HUB_HOST=hub
+      NODE_MAX_INSTANCES: 10
+      NODE_MAX_SESSION: 10
+      HUB_HOST: hub
+
+  hub:
+    image: selenium/hub:latest
+    ports:
+      - "4444:4444"
+    environment:
+      GRID_MAX_SESSION: 10
