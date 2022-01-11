@@ -17,7 +17,7 @@ ADD xml_suites/registration-confimration-test.xml   registration-confimration-te
 ADD xml_suites/user-registration-test.xml           user-registration-test.xml
 
 #copy if any other dependencies are there like test-data files, properties files
-ADD resources/config/config.properties     src/main/resources/config/config.properties/config.properties
+ADD src/main/resources/config/config.properties     src/main/resources/config/config.properties/config.properties
 
 #Add health check script
 ADD healthcheck.sh                       healthcheck.sh
