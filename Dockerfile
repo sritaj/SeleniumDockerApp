@@ -3,20 +3,21 @@ FROM  openjdk:18-jdk-alpine3.13
 RUN apk add curl jq
 
 #WORKSPACE
-WORKDIR /usr/share/udemy
+WORKDIR /usr/share/seleniumframework
 
-#ADD .jar from Target to Host
+#ADD .jars under Target from Host
 #into this image
 ADD target/selenium-docker.jar           selenium-docker.jar
 ADD target/selenium-docker-tests.jar     selenium-docker-tests.jar
 ADD target/libs                          libs
 
 #ADD XML SUITE files
-ADD flight-details-test.xml              flight-details-test.xml
-ADD registration-confimration-test.xml   registration-confimration-test.xml
-ADD user-registration-test.xml           user-registration-test.xml
+ADD xml_suites/flight-details-test.xml              flight-details-test.xml
+ADD xml_suites/registration-confimration-test.xml   registration-confimration-test.xml
+ADD xml_suites/user-registration-test.xml           user-registration-test.xml
 
-#copy if any other dependencies are there like test-data files, properties files etc
+#copy if any other dependencies are there like test-data files, properties files
+ADD resources/config/config.properties     src/main/resources/config/config.properties/config.properties
 
 #Add health check script
 ADD healthcheck.sh                       healthcheck.sh

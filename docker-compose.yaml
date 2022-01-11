@@ -2,24 +2,33 @@ version: "3"
 services:
   hub:
     image: selenium/hub:latest
+    restart: always
     ports:
       - "4444:4444"
+    environment:
+      GRID_MAX_SESSION: 30
   chrome:
     image: selenium/node-chrome:latest
-    shm_size: '1gb'
+    shm_size: '2gb'
     depends_on:
       - hub
     environment:
-      - HUB_HOST=hub
+      NODE_MAX_INSTANCES: 10
+      NODE_MAX_SESSION: 10
+      HUB_HOST: hub
+    restart: always
   firefox:
     image: selenium/node-firefox:latest
-    shm_size: '1gb'
+    shm_size: '2gb'
     depends_on:
       - hub
     environment:
-      - HUB_HOST=hub
+      NODE_MAX_INSTANCES: 10
+      NODE_MAX_SESSION: 10
+      HUB_HOST: hub
+    restart: always
   selenium-project:
-    image: sritaj/selenium_docker:48
+    image: sritaj/selenium_docker:latest
     depends_on:
       - chrome
       - firefox
@@ -28,4 +37,4 @@ services:
       - HUB_HOST=hub
       - MODULE=flight-details-test.xml
     volumes:
-      - /Users/sritaj/Technical KnowHow/SeleniumProjects/output:/usr/share/udemy/test-output
+      - /Users/sritaj/Technical KnowHow/SeleniumProjects/output:/çusr/share/seleniumframework/test-output
