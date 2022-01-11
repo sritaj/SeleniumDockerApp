@@ -1,5 +1,7 @@
 webPagesTest/RegistrationConfirmationPageTest.class
-base/BaseTest.class
 helperTests/LoggerTest.class
+webPagesTest/FacebookHomeTest.class
+base/BaseTest.class
 webPagesTest/FlightDetailsPageTest.class
 webPagesTest/UserRegistrationPageTest.class
+webPagesTest/WalletHubTest.class

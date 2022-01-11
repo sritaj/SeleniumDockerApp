@@ -22,35 +22,49 @@ public final class Driver {
 
         if (Objects.isNull(DriverManager.getDriver())) {
             WebDriverManager.chromedriver().setup();
-//            System.setProperty("webdriver.chrome.driver", FrameworkConstants.getChromeDriverPath());
             DriverManager.setDriver(new ChromeDriver());
             DriverManager.getDriver().manage().window().maximize();
             DriverManager.getDriver().get(PropertiesFileImp.getDataFromPropertyFile(ConfigProperties.URL));
         }
     }
 
-    public static void gridInit() throws MalformedURLException {
-        DesiredCapabilities dc = new DesiredCapabilities();
-        if (System.getProperty("BROWSER") != null) {
-            if (System.getProperty("BROWSER").equalsIgnoreCase("chrome")) {
-                dc.setBrowserName(BrowserType.CHROME);
-            } else if (System.getProperty("BROWSER").equalsIgnoreCase("firefox")) {
-                dc.setBrowserName(BrowserType.FIREFOX);
-            }
-        } else {
+    public static void gridInit() {
+        if (Objects.isNull(DriverManager.getDriver())) {
+            WebDriverManager.chromedriver().setup();
+            DesiredCapabilities dc = new DesiredCapabilities();
             dc.setBrowserName(BrowserType.CHROME);
+            try{
+                DriverManager.setDriver(new RemoteWebDriver(
+                        new URL("http://localhost:4444/wd/hub"), dc));
+            }catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
         }
-
-        String completeURL = null;
-        if (System.getProperty("HUB_HOST") != null) {
-            completeURL = "http://" + System.getProperty("HUB_HOST") + ":4444/wd/hub";
-        }
-
-        DriverManager.setDriver(new RemoteWebDriver(new URL(completeURL), dc));
-
         DriverManager.getDriver().manage().window().maximize();
         DriverManager.getDriver().get(PropertiesFileImp.getDataFromPropertyFile(ConfigProperties.URL
         ));
+
+//        if (System.getProperty("BROWSER") != null) {
+//            if (System.getProperty("BROWSER").equalsIgnoreCase("chrome")) {
+//                dc.setBrowserName(BrowserType.CHROME);
+//            } else if (System.getProperty("BROWSER").equalsIgnoreCase("firefox")) {
+//                dc.setBrowserName(BrowserType.FIREFOX);
+//            }
+//        } else {
+//            dc.setBrowserName(BrowserType.CHROME);
+//        }
+//
+//        String completeURL = null;
+//        if (System.getProperty("HUB_HOST") != null) {
+//            //completeURL = "http://" + System.getProperty("HUB_HOST") + ":4444/wd/hub";
+//            completeURL = "http://hub:4444/wd/hub";
+//        }
+//
+//        DriverManager.setDriver(new RemoteWebDriver(new URL(completeURL), dc));
+
+//        DriverManager.getDriver().manage().window().maximize();
+//        DriverManager.getDriver().get(PropertiesFileImp.getDataFromPropertyFile(ConfigProperties.URL
+//        ));
     }
 
     public static void quit() {
