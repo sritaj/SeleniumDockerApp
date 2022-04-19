@@ -14,7 +14,7 @@ public class FacebookHomeTest extends BaseTest {
         FacebookLoginPage fbLogin = new FacebookLoginPage();
         FacebookHomePage homePg = new FacebookHomePage();
         FacebookProfilePage profilePg = new FacebookProfilePage();
-        fbLogin.login("8553716924", "");
+        fbLogin.login("", "");
         homePg.clickOnHomeIcon();
         String retrieveUserName = homePg.getUserDetailFromStatusBox();
         String[] userNamePortion = retrieveUserName.split(",");
